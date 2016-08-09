@@ -28,6 +28,21 @@ var albumMarconi = {
     ]
 };
 
+var albumMozart = {
+    title: 'Symphony',
+    artist: 'Wolfgang Amadeus Mozart',
+    label: 'Classic',
+    year: '1770',
+    albumArtUrl: 'assets/images/album_covers/05.png',
+    songs: [
+        { title: 'Zaide', duration: '6:43' },
+        { title: 'Piano Concerto B-flat', duration: '4:52' },
+        { title: 'Clarinet Concerto', duration: '5:20' },
+        { title: 'The Magic Flute', duration: '3:10' },
+        { title: 'Little Masonic Cantata', duration: '7:04' }
+    ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template = 
         '<tr class="album-view-song-item">'
@@ -40,13 +55,13 @@ var createSongRow = function(songNumber, songName, songLength) {
     return template;
 };
 
-var setCurrentAlbum = function(album) {
-    var albumTitle = document.getElementsByClassName('album-view-title')[0];
-    var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-    var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-    var albumImage = document.getElementsByClassName('album-cover-art')[0];
-    var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
     
+var setCurrentAlbum = function(album) {
     albumTitle.firstChild.nodeValue = album.title;
     albumArtist.firstChild.nodeValue = album.artist;
     albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
@@ -61,4 +76,14 @@ var setCurrentAlbum = function(album) {
 
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+    
+    var albums = [albumPicasso, albumMarconi, albumMozart];
+    var index = 1;
+    albumImage.addEventListener("click", function(event) {
+        setCurrentAlbum(albums[index]);
+        index++;
+        if (index == albums.length) {
+            index = 0;
+        }
+    });
 };
